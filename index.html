@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080d18">
+<title>CLASSDEX</title>
+
+<style>
+:root {
+    --bg: #080d18;
+    --panel: #0d1524;
+    --panel2: #111d30;
+    --border: #1c2b40;
+    --blue: #3288ff;
+    --cyan: #69c9ff;
+    --text: #eaf2ff;
+    --muted: #71829d;
+    --green: #45d6a1;
+    --red: #ff667d;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    background:
+        radial-gradient(ellipse at 50% -20%, #142c4e 0%, transparent 50%),
+        var(--bg);
+    color: var(--text);
+    font-family: Inter, Arial, sans-serif;
+    font-size: 13px;
+}
+
+button, input, select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+header {
+    height: 72px;
+    padding: 0 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    background: rgba(8,13,24,.8);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.brand-icon {
+    width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    border-radius: 10px;
+    background: linear-gradient(135deg,#3288ff,#1451a0);
+    box-shadow: 0 0 25px #3288ff22;
+}
+
+.brand-icon svg {
+    width: 21px;
+    height: 21px;
+    stroke: white;
+    fill: none;
+    stroke-width: 1.7;
+}
+
+.brand-name {
+    font-weight: 800;
+    font-size: 16px;
+    letter-spacing: 2px;
+}
+
+.brand-name span {
+    color: var(--cyan);
+}
+
+.brand-caption {
+    color: var(--muted);
+    font-size: 10px;
+    margin-top: 5px;
+    letter-spacing: .6px;
+}
+
+.status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--green);
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+.dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 10px #45d6a155;
+}
+
+main {
+    width: 90%;
+    max-width: 1100px;
+    margin: 38px auto 70px;
+}
+
+.heading {
+    margin-bottom: 27px;
+}
+
+.heading h1 {
+    font-size: clamp(27px,4vw,36px);
+    letter-spacing: -1px;
+    font-weight: 750;
+}
+
+.heading p {
+    margin-top: 9px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.card {
+    background: linear-gradient(145deg,#0e192a,#0b1320);
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    padding: 20px;
+    min-width: 0;
+}
+
+.stat-label {
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: 1.1px;
+}
+
+.stat-number {
+    margin-top: 13px;
+    font-size: 29px;
+    font-weight: 750;
+    letter-spacing: -.5px;
+}
+
+.stat-footer {
+    color: var(--muted);
+    font-size: 10px;
+    margin-top: 8px;
+}
+
+.blue {
+    color: var(--cyan);
+}
+
+.green {
+    color: var(--green);
+}
+
+.red {
+    color: var(--red);
+}
+
+.main-layout {
+    display: grid;
+    grid-template-columns: .85fr 1.15fr;
+    gap: 17px;
+}
+
+.card-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.card-heading h2 {
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.mini-label {
+    color: var(--muted);
+    font-size: 10px;
+}
+
+.dropzone {
+    min-height: 170px;
+    border: 1px dashed #2a4567;
+    background: #0a1423;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 22px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.dropzone:hover {
+    border-color: var(--blue);
+    background: #101f33;
+}
+
+.upload-icon {
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border: 1px solid #28496c;
+    background: #14253b;
+    border-radius: 12px;
+    margin-bottom: 15px;
+}
+
+.upload-icon svg {
+    width: 22px;
+    height: 22px;
+    stroke: var(--cyan);
+    fill: none;
+    stroke-width: 1.7;
+}
+
+.drop-title {
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.drop-desc {
+    color: var(--muted);
+    font-size: 10px;
+    margin-top: 8px;
+}
+
+#fileInput {
+    display: none;
+}
+
+.file-box {
+    display: none;
+    margin-top: 12px;
+    padding: 12px;
+    background: #080f1b;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+}
+
+.file-box.show {
+    display: block;
+}
+
+.file-name {
+    font-size: 11px;
+    overflow-wrap: anywhere;
+}
+
+.file-size {
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 5px;
+}
+
+.buttons {
+    display: flex;
+    gap: 9px;
+    margin-top: 14px;
+}
+
+.btn {
+    border: 1px solid var(--border);
+    background: var(--panel2);
+    color: var(--text);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 11px;
+    font-weight: 700;
+    transition: .2s;
+}
+
+.btn:hover {
+    border-color: #42658b;
+}
+
+.btn:disabled {
+    opacity: .4;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    flex: 1;
+    color: white;
+    border: none;
+    background: linear-gradient(110deg,#2469df,#3288ff);
+    box-shadow: 0 5px 20px #3288ff14;
+}
+
+.progress-wrap {
+    margin-top: 18px;
+}
+
+.progress-top {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: var(--muted);
+    margin-bottom: 9px;
+}
+
+.progress {
+    height: 4px;
+    background: #1a293c;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg,#3288ff,#69c9ff);
+    transition: width .15s;
+}
+
+.terminal {
+    height: 215px;
+    background: #070c15;
+    border: 1px solid #17263a;
+    border-radius: 9px;
+    padding: 15px;
+    overflow: auto;
+    font: 10px/2 Consolas, monospace;
+}
+
+.terminal-line {
+    color: #8194ad;
+    overflow-wrap: anywhere;
+}
+
+.terminal-line.info {
+    color: var(--cyan);
+}
+
+.terminal-line.success {
+    color: var(--green);
+}
+
+.terminal-line.warning {
+    color: #e7bd72;
+}
+
+.terminal-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.terminal-lights {
+    display: flex;
+    gap: 5px;
+}
+
+.terminal-lights span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #263b54;
+}
+
+.results-card {
+    margin-top: 17px;
+}
+
+.results-toolbar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.search {
+    flex: 1;
+    min-width: 0;
+    background: #080f1b;
+    border: 1px solid var(--border);
+    outline: none;
+    border-radius: 8px;
+    color: white;
+    padding: 11px 12px;
+    font-size: 11px;
+}
+
+.search:focus {
+    border-color: var(--blue);
+}
+
+select {
+    background: #080f1b;
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px;
+    outline: none;
+    font-size: 11px;
+    max-width: 48%;
+}
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    min-width: 520px;
+    border-collapse: collapse;
+    font-size: 11px;
+}
+
+th {
+    text-align: left;
+    padding: 12px 10px;
+    color: var(--muted);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    border-bottom: 1px solid var(--border);
+}
+
+td {
+    padding: 13px 10px;
+    border-bottom: 1px solid #172337;
+    vertical-align: top;
+    overflow-wrap: anywhere;
+}
+
+.keyword {
+    font-family: Consolas, monospace;
+    color: #cde8ff;
+}
+
+.count {
+    color: var(--cyan);
+    font-weight: 700;
+}
+
+.tag {
+    padding: 5px 7px;
+    background: #152942;
+    border-radius: 5px;
+    color: #91c9ff;
+    font-size: 9px;
+}
+
+.context {
+    color: var(--muted);
+    font: 10px/1.6 Consolas, monospace;
+    max-width: 350px;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.empty {
+    text-align: center;
+    color: var(--muted);
+    padding: 35px 10px;
+}
+
+.results-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-top: 15px;
+    color: var(--muted);
+    font-size: 10px;
+}
+
+footer {
+    padding: 24px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    color: #536782;
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+@media(max-width:760px) {
+    header {
+        padding: 0 5%;
+        height: 66px;
+    }
+
+    main {
+        width: 92%;
+        margin-top: 28px;
+    }
+
+    .main-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .stats {
+        gap: 9px;
+    }
+
+    .card {
+        padding: 16px;
+    }
+
+    .stat-number {
+        font-size: 23px;
+    }
+
+    .stat-label {
+        font-size: 9px;
+        letter-spacing: .5px;
+    }
+}
+
+@media(max-width:420px) {
+    .brand-caption {
+        font-size: 9px;
+    }
+
+    .brand-name {
+        font-size: 14px;
+    }
+
+    .status {
+        font-size: 9px;
+    }
+
+    .stats {
+        grid-template-columns: repeat(3,minmax(0,1fr));
+    }
+
+    .stat-number {
+        font-size: 20px;
+    }
+
+    .stat-footer {
+        font-size: 9px;
+    }
+
+    .results-toolbar {
+        flex-direction: column;
+    }
+
+    select {
+        max-width: none;
+        width: 100%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="brand">
+        <div class="brand-icon">
+            <svg viewBox="0 0 24 24">
+                <path d="M12 3 20 7.5 20 16.5 12 21 4 16.5 4 7.5Z"/>
+                <path d="M4 7.5 12 12 20 7.5M12 12V21"/>
+                <path d="m8 5.2 8 4.5"/>
+            </svg>
+        </div>
+
+        <div>
+            <div class="brand-name">CLASSDEX<span>.</span></div>
+            <div class="brand-caption">DEX ANALYSIS TOOL</div>
+        </div>
+    </div>
+
+    <div class="status">
+        <span class="dot" id="statusDot"></span>
+        <span id="headerStatus">SYSTEM READY</span>
+    </div>
+</header>
+
+<main>
+
+    <section class="heading">
+        <h1>DEX Scanner</h1>
+        <p>Analyze local DEX files with keyword detection.</p>
+    </section>
+
+    <section class="stats">
+
+        <div class="card">
+            <div class="stat-label">KEYWORDS</div>
+            <div class="stat-number blue" id="keywordTotal">111</div>
+            <div class="stat-footer">Loaded patterns</div>
+        </div>
+
+        <div class="card">
+            <div class="stat-label">MATCHES</div>
+            <div class="stat-number" id="matchTotal">0</div>
+            <div class="stat-footer">Detected strings</div>
+        </div>
+
+        <div class="card">
+            <div class="stat-label">SCAN STATUS</div>
+            <div class="stat-number" id="scanState" style="font-size:19px">READY</div>
+            <div class="stat-footer" id="scanTime">Awaiting file</div>
+        </div>
+
+    </section>
+
+    <section class="main-layout">
+
+        <div class="card">
+
+            <div class="card-heading">
+                <h2>Input File</h2>
+                <span class="mini-label">LOCAL</span>
+            </div>
+
+            <label class="dropzone" for="fileInput">
+
+                <div class="upload-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 16V4"/>
+                        <path d="m7 9 5-5 5 5"/>
+                        <path d="M5 14v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-5"/>
+                    </svg>
+                </div>
+
+                <div class="drop-title">Select DEX File</div>
+                <div class="drop-desc">Tap to browse your device</div>
+
+            </label>
+
+            <input id="fileInput" type="file" accept=".dex,.apk,.jar,.bin">
+
+            <div class="file-box" id="fileBox">
+                <div class="file-name" id="fileName">No file</div>
+                <div class="file-size" id="fileSize">0 KB</div>
+            </div>
+
+            <div class="buttons">
+                <button class="btn btn-primary" id="scanBtn" disabled>
+                    START SCAN
+                </button>
+
+                <button class="btn" id="resetBtn">
+                    RESET
+                </button>
+            </div>
+
+            <div class="progress-wrap">
+                <div class="progress-top">
+                    <span id="progressLabel">PROGRESS</span>
+                    <span id="progressPercent">0%</span>
+                </div>
+
+                <div class="progress">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <div class="terminal-head">
+                <h2 style="font-size:13px">Activity Log</h2>
+
+                <div class="terminal-lights">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+
+            <div class="terminal" id="terminal">
+                <div class="terminal-line info">CLASSDEX initialized.</div>
+                <div class="terminal-line">Scanner ready.</div>
+                <div class="terminal-line">Waiting for input file...</div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="card results-card">
+
+        <div class="card-heading">
+            <h2>Detection Results</h2>
+            <button class="btn" id="exportBtn" disabled>EXPORT</button>
+        </div>
+
+        <div class="results-toolbar">
+            <input
+                class="search"
+                id="searchInput"
+                placeholder="Search keyword..."
+                type="search"
+            >
+
+            <select id="filterCategory">
+                <option value="all">All categories</option>
+                <option value="Premium">Premium</option>
+                <option value="Membership">Membership</option>
+                <option value="Subscription">Subscription</option>
+                <option value="Trial">Trial</option>
+                <option value="Loyalty">Loyalty</option>
+                <option value="Bonus">Bonus</option>
+                <option value="Gift">Gift</option>
+                <option value="Status">Other status</option>
+            </select>
+        </div>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>KEYWORD</th>
+                        <th>CATEGORY</th>
+                        <th>MATCHES</th>
+                        <th>CONTEXT</th>
+                    </tr>
+                </thead>
+
+                <tbody id="results">
+                    <tr>
+                        <td colspan="4" class="empty">
+                            Select a DEX file to begin.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="results-footer">
+            <span id="resultCount">0 results</span>
+            <span>CLASSDEX / NULL</span>
+        </div>
+
+    </section>
+
+</main>
+
+<footer>CLASSDEX ANALYZER &nbsp; / &nbsp; CREDIT: NULL</footer>
+
+<script>
+"use strict";
+
+const KEYWORDS = [
+"isactive","is_active","isuser","is_user","ismember","is_member",
+"ispremiumuser","is_premium_user","isvipmember","is_vip_member",
+"hasaccess","has_access","isvalid","is_valid","purchased","purchase_done",
+"premiumaccess","premium_access","isregistered","is_registered",
+"renewsubscription","renew_subscription","member_since","subscribed",
+"subscription_status","haspremium","has_premium","isactivated","is_activated",
+"iseligible","is_eligible","unlockpremium","unlock_premium","isunlocked",
+"is_unlocked","ispaid","is_paid","adfree","ad_free","isadfree","is_ad_free",
+"isgift","is_gift","giftuser","gift_user","isgifted","is_gifted","hasgift",
+"has_gift","premiumuser","premium_user","ispremium","is_premium","isvip",
+"is_vip","ispro","is_pro","isactiveuser","is_active_user","ismemberuser",
+"is_member_user","isloyal","is_loyal","loyaltystatus","loyalty_status",
+"isloyaluser","is_loyal_user","hasloyalty","has_loyalty","loyaltypoints",
+"loyalty_points","haspoints","has_points","pointbalance","point_balance",
+"bonususer","bonus_user","isbonus","is_bonus","bonusactive","bonus_active",
+"isbonususer","is_bonus_user","hasbonus","has_bonus","istrial","is_trial",
+"trialuser","trial_user","istrialuser","is_trial_user","trialexpired",
+"trial_expired","isexpired","is_expired","isrenewed","is_renewed",
+"renewactive","renew_active","hasrenewed","has_renewed","ispremiumaccess",
+"is_premium_access","premiumstatus","premium_status","ispremiumuseractive",
+"is_premium_user_active","active_subscription","active_subscription_user",
+"isactivepremium","is_active_premium"
+];
+
+const $ = id => document.getElementById(id);
+
+let selectedFile = null;
+let resultsData = [];
+let generation = 0;
+let startTime = 0;
+
+$("keywordTotal").textContent = KEYWORDS.length;
+
+function addLog(text, type = "") {
+    const line = document.createElement("div");
+    line.className = "terminal-line " + type;
+
+    line.textContent =
+        new Date().toLocaleTimeString("id-ID") + "  " + text;
+
+    $("terminal").appendChild(line);
+    $("terminal").scrollTop = $("terminal").scrollHeight;
+
+    while ($("terminal").children.length > 100) {
+        $("terminal").removeChild($("terminal").firstChild);
+    }
+}
+
+function formatBytes(bytes) {
+    if (bytes < 1024) return bytes + " B";
+    if (bytes < 1048576) return (bytes / 1024).toFixed(1) + " KB";
+    return (bytes / 1048576).toFixed(2) + " MB";
+}
+
+function categoryOf(word) {
+    if (/premium|vip|pro|adfree|ad_free/.test(word)) return "Premium";
+
+    if (/member|user|registered|active/.test(word)) {
+        return "Membership";
+    }
+
+    if (/subscription|subscribed|purchase|purchased|renew/.test(word)) {
+        return "Subscription";
+    }
+
+    if (/trial|expired/.test(word)) return "Trial";
+
+    if (/loyal|loyalty|points|pointbalance|haspoints/.test(word)) {
+        return "Loyalty";
+    }
+
+    if (/bonus/.test(word)) return "Bonus";
+    if (/gift/.test(word)) return "Gift";
+
+    return "Status";
+}
+
+function setProgress(value) {
+    $("progressFill").style.width = value + "%";
+    $("progressPercent").textContent = value + "%";
+}
+
+function setState(state, color = "") {
+    $("scanState").textContent = state;
+    $("scanState").className = "stat-number " + color;
+    $("headerStatus").textContent = state === "SCANNING"
+        ? "SCANNING"
+        : state === "COMPLETED"
+        ? "SCAN COMPLETE"
+        : state === "ERROR"
+        ? "SCAN ERROR"
+        : "SYSTEM READY";
+}
+
+$("fileInput").addEventListener("change", event => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    generation++;
+    selectedFile = file;
+    resultsData = [];
+
+    $("fileBox").classList.add("show");
+    $("fileName").textContent = file.name;
+    $("fileSize").textContent = formatBytes(file.size);
+
+    $("scanBtn").disabled = false;
+    $("exportBtn").disabled = true;
+
+    $("matchTotal").textContent = "0";
+    $("scanTime").textContent = "File loaded";
+
+    $("results").innerHTML =
+        '<tr><td colspan="4" class="empty">Ready to scan.</td></tr>';
+
+    $("resultCount").textContent = "0 results";
+
+    setProgress(0);
+    setState("READY", "blue");
+
+    addLog("File selected: " + file.name, "info");
+});
+
+$("scanBtn").addEventListener("click", async () => {
+    if (!selectedFile) return;
+
+    const file = selectedFile;
+    const myGeneration = ++generation;
+
+    startTime = performance.now();
+
+    $("scanBtn").disabled = true;
+    $("exportBtn").disabled = true;
+
+    setState("SCANNING", "blue");
+    addLog("Scanning started.", "info");
+
+    const counts = new Map();
+    const contexts = new Map();
+
+    KEYWORDS.forEach(word => {
+        counts.set(word, 0);
+        contexts.set(word, []);
+    });
+
+    /*
+     * Baca file dalam beberapa bagian agar penggunaan
+     * memori browser lebih terkendali.
+     */
+    const CHUNK = 1024 * 1024;
+    const OVERLAP = 256;
+    let offset = 0;
+    let carry = new Uint8Array(0);
+
+    try {
+        while (offset < file.size) {
+            if (myGeneration !== generation) return;
+
+            const end = Math.min(offset + CHUNK, file.size);
+
+            const bytes = new Uint8Array(
+                await file.slice(offset, end).arrayBuffer()
+            );
+
+            const joined = new Uint8Array(carry.length + bytes.length);
+
+            joined.set(carry);
+            joined.set(bytes, carry.length);
+
+            let text = "";
+
+            for (let i = 0; i < joined.length; i += 16384) {
+                text += String.fromCharCode(
+                    ...joined.subarray(i, Math.min(i + 16384, joined.length))
+                );
+            }
+
+            const lower = text.toLowerCase();
+
+            for (const word of KEYWORDS) {
+                let position = 0;
+
+                while ((position = lower.indexOf(word, position)) !== -1) {
+                    const absoluteOffset =
+                        offset - carry.length + position;
+
+                    /*
+                     * Jangan menghitung ulang match yang dimulai
+                     * sebelum awal chunk baru.
+                     */
+                    if (absoluteOffset >= offset) {
+                        counts.set(word, counts.get(word) + 1);
+
+                        const snippets = contexts.get(word);
+
+                        if (snippets.length < 3) {
+                            snippets.push({
+                                offset: absoluteOffset,
+                                text: text.slice(
+                                    Math.max(0, position - 40),
+                                    Math.min(
+                                        text.length,
+                                        position + word.length + 55
+                                    )
+                                ).replace(/[^\x20-\x7E]/g, ".")
+                            });
+                        }
+                    }
+
+                    position += word.length;
+                }
+            }
+
+            carry = joined.slice(-OVERLAP);
+            offset = end;
+
+            setProgress(Math.floor(offset / file.size * 100));
+
+            await new Promise(resolve => setTimeout(resolve, 0));
+        }
+
+        if (myGeneration !== generation) return;
+
+        resultsData = KEYWORDS
+            .filter(word => counts.get(word) > 0)
+            .map(word => ({
+                keyword: word,
+                category: categoryOf(word),
+                count: counts.get(word),
+                contexts: contexts.get(word)
+            }))
+            .sort((a, b) => b.count - a.count);
+
+        const total = resultsData.reduce((sum, item) => {
+            return sum + item.count;
+        }, 0);
+
+        $("matchTotal").textContent = total.toLocaleString("id-ID");
+
+        $("scanTime").textContent =
+            ((performance.now() - startTime) / 1000).toFixed(2) + " sec";
+
+        setProgress(100);
+        setState("COMPLETED", "green");
+
+        $("exportBtn").disabled = resultsData.length === 0;
+
+        renderResults();
+
+        addLog(
+            "Scan complete: " + resultsData.length + " keywords matched.",
+            "success"
+        );
+
+        addLog("Matches are string indicators, not bypass confirmation.", "warning");
+
+    } catch (error) {
+        setState("ERROR", "red");
+        addLog("Read error: " + error.message, "warning");
+    } finally {
+        if (myGeneration === generation) {
+            $("scanBtn").disabled = !selectedFile;
+        }
+    }
+});
+
+function renderResults() {
+    const query = $("searchInput").value.trim().toLowerCase();
+    const category = $("filterCategory").value;
+
+    const filtered = resultsData.filter(item => {
+        const queryMatch =
+            item.keyword.toLowerCase().includes(query) ||
+            item.category.toLowerCase().includes(query);
+
+        const categoryMatch =
+            category === "all" || item.category === category;
+
+        return queryMatch && categoryMatch;
+    });
+
+    $("resultCount").textContent =
+        filtered.length + " of " + resultsData.length + " results";
+
+    $("results").replaceChildren();
+
+    if (!filtered.length) {
+        const row = document.createElement("tr");
+        const cell = document.createElement("td");
+
+        cell.colSpan = 4;
+        cell.className = "empty";
+        cell.textContent = "No matching results.";
+
+        row.appendChild(cell);
+        $("results").appendChild(row);
+
+        return;
+    }
+
+    for (const item of filtered) {
+        const row = document.createElement("tr");
+
+        const keyword = document.createElement("td");
+        keyword.className = "keyword";
+        keyword.textContent = item.keyword;
+
+        const categoryCell = document.createElement("td");
+        const tag = document.createElement("span");
+
+        tag.className = "tag";
+        tag.textContent = item.category;
+        categoryCell.appendChild(tag);
+
+        const count = document.createElement("td");
+        count.className = "count";
+        count.textContent = item.count.toLocaleString("id-ID");
+
+        const context = document.createElement("td");
+
+        if (item.contexts.length) {
+            item.contexts.forEach(entry => {
+                const snippet = document.createElement("div");
+
+                snippet.className = "context";
+                snippet.textContent =
+                    "@" + entry.offset + " " + entry.text;
+
+                context.appendChild(snippet);
+            });
+        } else {
+            context.textContent = "-";
+        }
+
+        row.append(keyword, categoryCell, count, context);
+        $("results").appendChild(row);
+    }
+}
+
+$("searchInput").addEventListener("input", renderResults);
+$("filterCategory").addEventListener("change", renderResults);
+
+$("exportBtn").addEventListener("click", () => {
+    const report = {
+        tool: "CLASSDEX",
+        credit: null,
+        file: selectedFile ? selectedFile.name : null,
+        fileSize: selectedFile ? selectedFile.size : null,
+        scannedAt: new Date().toISOString(),
+        matches: resultsData,
+        note: "Keyword matches do not establish bypassability."
+    };
+
+    const blob = new Blob(
+        [JSON.stringify(report, null, 2)],
+        {type: "application/json"}
+    );
+
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = "classdex-report.json";
+    link.click();
+
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+
+    addLog("Report exported.", "success");
+});
+
+$("resetBtn").addEventListener("click", () => {
+    generation++;
+    selectedFile = null;
+    resultsData = [];
+
+    $("fileInput").value = "";
+    $("fileBox").classList.remove("show");
+
+    $("scanBtn").disabled = true;
+    $("exportBtn").disabled = true;
+
+    $("matchTotal").textContent = "0";
+    $("scanTime").textContent = "Awaiting file";
+
+    $("results").innerHTML =
+        '<tr><td colspan="4" class="empty">Select a DEX file to begin.</td></tr>';
+
+    $("resultCount").textContent = "0 results";
+
+    setProgress(0);
+    setState("READY", "blue");
+
+    addLog("Scanner reset.", "info");
+});
+</script>
+
+</body>
+</html>
